@@ -1,31 +1,41 @@
 package arvore;
 
-public class No<T extends Comparable<?>> {
+public class No {
 
 	private int valor;
 	private int altura;
-	private No<T> direito;
-	private No<T> esquerdo;
+	private No pai;
+	private No direito;
+	private No esquerdo;
 
-	public No(int valor) {
+	public No(int valor, No pai) {
 		this.valor = valor;
+		this.pai = pai;
 		this.direito = null;
 		this.esquerdo = null;
 	}
 
-	public No<T> getDireito() {
+	public No getPai() {
+		return pai;
+	}
+
+	public void setPai(No pai) {
+		this.pai = pai;
+	}
+
+	public No getDireito() {
 		return direito;
 	}
 
-	public void setDireito(No<T> direito) {
+	public void setDireito(No direito) {
 		this.direito = direito;
 	}
 
-	public No<T> getEsquerdo() {
+	public No getEsquerdo() {
 		return esquerdo;
 	}
 
-	public void setEsquerdo(No<T> esquerdo) {
+	public void setEsquerdo(No esquerdo) {
 		this.esquerdo = esquerdo;
 	}
 
@@ -43,5 +53,13 @@ public class No<T extends Comparable<?>> {
 
 	public void setAltura(int altura) {
 		this.altura = altura;
+	}
+
+	public void atualizarFilhoUnico(No noFilho) {
+		if (this.getValor() < this.getPai().getValor()) {
+			this.getPai().setEsquerdo(noFilho);
+		} else {
+			this.getPai().setDireito(noFilho);
+		}
 	}
 }
