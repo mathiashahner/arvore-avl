@@ -101,3 +101,4 @@ public class Main {
 
 // https://stackoverflow.com/a/4973083
 // https://www.baeldung.com/java-binary-tree
+// https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm#
