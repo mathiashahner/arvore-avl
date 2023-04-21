@@ -11,6 +11,7 @@ public class No {
 	public No(int valor, No pai) {
 		this.valor = valor;
 		this.pai = pai;
+		this.altura = 1;
 		this.direito = null;
 		this.esquerdo = null;
 	}

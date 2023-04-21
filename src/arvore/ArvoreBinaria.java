@@ -21,13 +21,18 @@ public class ArvoreBinaria {
 		if (valor < noPai.getValor()) {
 			No no = inserir(valor, noPai.getEsquerdo());
 			no.setPai(noPai);
+			no.setAltura(noPai.getAltura() + 1);
 			noPai.setEsquerdo(no);
 		} else if (valor > noPai.getValor()) {
 			No no = inserir(valor, noPai.getDireito());
 			no.setPai(noPai);
+			no.setAltura(noPai.getAltura() + 1);
 			noPai.setDireito(no);
+		} else {
+			return noPai;
 		}
-		return noPai;
+
+		return ArvoreAvl.rebalancear(noPai, valor);
 	}
 
 	public No buscar(int valor) {
@@ -59,6 +64,7 @@ public class ArvoreBinaria {
 		} else if (Objects.nonNull(no.getEsquerdo()) ^ Objects.nonNull(no.getDireito())) {
 			No noFilho = Objects.nonNull(no.getEsquerdo()) ? no.getEsquerdo() : no.getDireito();
 			noFilho.setPai(no.getPai());
+			noFilho.setAltura(noFilho.getAltura() - 1);
 			no.atualizarFilhoUnico(noFilho);
 		} else if (Objects.nonNull(no.getEsquerdo()) && Objects.nonNull(no.getDireito())) {
 			No maiorNoEsquerdo = no.getEsquerdo();
@@ -75,6 +81,7 @@ public class ArvoreBinaria {
 
 			maiorNoEsquerdo.setEsquerdo(no.getEsquerdo());
 			maiorNoEsquerdo.setDireito(no.getDireito());
+			maiorNoEsquerdo.setAltura(maiorNoEsquerdo.getEsquerdo().getAltura() - 1);
 		}
 		return true;
 	}
