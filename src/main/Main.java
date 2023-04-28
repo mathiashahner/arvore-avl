@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import arvore.ArvoreBinaria;
 import arvore.No;
-import ui.Arvore;
+import ui.ExibirArvore;
 
 public class Main {
 
@@ -14,13 +14,13 @@ public class Main {
 	public static void main(String[] args) {
 		ArvoreBinaria arvoreBinaria = new ArvoreBinaria();
 
-		arvoreBinaria.inserir(4);
-		arvoreBinaria.inserir(2);
-		arvoreBinaria.inserir(1);
-		arvoreBinaria.inserir(3);
-		arvoreBinaria.inserir(6);
-		arvoreBinaria.inserir(5);
-		arvoreBinaria.inserir(7);
+//		arvoreBinaria.inserir(4);
+//		arvoreBinaria.inserir(2);
+//		arvoreBinaria.inserir(1);
+//		arvoreBinaria.inserir(3);
+//		arvoreBinaria.inserir(6);
+//		arvoreBinaria.inserir(5);
+//		arvoreBinaria.inserir(7);
 
 //		arvoreBinaria.inserir(8);
 //		arvoreBinaria.inserir(4);
@@ -41,7 +41,7 @@ public class Main {
 //		arvoreBinaria.inserir(200);
 //		arvoreBinaria.inserir(80);
 
-		Arvore.printNode(arvoreBinaria.getRaiz());
+		ExibirArvore.imprimirNo(arvoreBinaria.getRaiz());
 
 		int opcao = -1;
 		int numero = 0;
@@ -59,25 +59,26 @@ public class Main {
 					System.out.println("\nValor não encontrado na árvore.");
 				} else {
 					System.out.println("\nAltura do nó: " + no.getAltura() + "\n");
-					Arvore.printNode(no);
+					ExibirArvore.imprimirNo(no);
 				}
 				break;
 			case 2:
 				numero = getInteiro("\nQual valor deseja inserir? ");
 				arvoreBinaria.inserir(numero);
-				Arvore.printNode(arvoreBinaria.getRaiz());
+				ExibirArvore.imprimirNo(arvoreBinaria.getRaiz());
 				break;
 			case 3:
 				numero = getInteiro("\nQual valor deseja excluir? ");
 
 				if (arvoreBinaria.excluir(numero) != null) {
-					Arvore.printNode(arvoreBinaria.getRaiz());
+					ExibirArvore.imprimirNo(arvoreBinaria.getRaiz());
 				} else {
 					System.out.println("\nValor não encontrado na árvore.");
 				}
 				break;
 			case 4:
-				System.out.println("\nPré-Ordem: " + arvoreBinaria.percorrerPreOrdem());
+				ExibirArvore.imprimirNo(arvoreBinaria.getRaiz());
+				System.out.println("Pré-Ordem: " + arvoreBinaria.percorrerPreOrdem());
 				System.out.println("Em-Ordem:  " + arvoreBinaria.percorrerEmOrdem());
 				System.out.println("Pós-Ordem: " + arvoreBinaria.percorrerPosOrdem());
 				break;
