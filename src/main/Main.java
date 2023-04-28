@@ -22,26 +22,6 @@ public class Main {
 //		arvoreBinaria.inserir(5);
 //		arvoreBinaria.inserir(7);
 
-//		arvoreBinaria.inserir(8);
-//		arvoreBinaria.inserir(4);
-//		arvoreBinaria.inserir(18);
-//		arvoreBinaria.inserir(2);
-//		arvoreBinaria.inserir(6);
-//		arvoreBinaria.inserir(12);
-//		arvoreBinaria.inserir(20);
-//		arvoreBinaria.inserir(10);
-//		arvoreBinaria.inserir(16);
-//		arvoreBinaria.inserir(14);
-
-//		arvoreBinaria.inserir(120);
-//		arvoreBinaria.inserir(110);
-//		arvoreBinaria.inserir(150);
-//		arvoreBinaria.inserir(100);
-//		arvoreBinaria.inserir(130);
-//		arvoreBinaria.inserir(200);
-//		arvoreBinaria.inserir(80);
-
-		ExibirArvore.imprimirNo(arvoreBinaria.getRaiz());
 
 		int opcao = -1;
 		int numero = 0;
