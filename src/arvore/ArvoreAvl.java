@@ -1,12 +1,9 @@
 package arvore;
 
-import java.util.Objects;
-
 public class ArvoreAvl {
 
-	public static No rebalancear(No no, int valor) {
+	public static No rebalancearInsercao(No no, int valor) {
 		int fatorBalanceamento = calcularFatorBalanceamento(no);
-		System.out.println(fatorBalanceamento);
 
 		if (fatorBalanceamento > 1 && valor < no.getEsquerdo().getValor()) {
 			return rotacaoDireita(no);
@@ -25,16 +22,36 @@ public class ArvoreAvl {
 		return no;
 	}
 
+	public static No rebalancearRemocao(No no) {
+		int fatorBalanceamento = calcularFatorBalanceamento(no);
+
+		if (fatorBalanceamento > 1 && calcularFatorBalanceamento(no.getEsquerdo()) >= 0) {
+			return rotacaoDireita(no);
+		}
+		if (fatorBalanceamento > 1 && calcularFatorBalanceamento(no.getEsquerdo()) < 0) {
+			no.setEsquerdo(rotacaoEsquerda(no.getEsquerdo()));
+			return rotacaoDireita(no);
+		}
+		if (fatorBalanceamento < -1 && calcularFatorBalanceamento(no.getDireito()) <= 0) {
+			return rotacaoEsquerda(no);
+		}
+		if (fatorBalanceamento < -1 && calcularFatorBalanceamento(no.getDireito()) > 0) {
+			no.setDireito(rotacaoDireita(no.getDireito()));
+			return rotacaoEsquerda(no);
+		}
+		return no;
+	}
+
+	public static int calcularAltura(No no) {
+		if (no == null)
+			return 0;
+		return no.getAltura();
+	}
+
 	private static int calcularFatorBalanceamento(No no) {
 		if (no == null)
 			return 0;
 		return calcularAltura(no.getEsquerdo()) - calcularAltura(no.getDireito());
-	}
-
-	private static int calcularAltura(No no) {
-		if (no == null)
-			return 0;
-		return no.getAltura();
 	}
 
 	private static No rotacaoDireita(No y) {
@@ -44,15 +61,8 @@ public class ArvoreAvl {
 		x.setDireito(y);
 		y.setEsquerdo(T2);
 
-		x.setPai(y.getPai());
-		y.setPai(x);
-		if (Objects.nonNull(T2)) {
-			T2.setPai(y);
-		}
-
-		x.setAltura(calcularAltura(x.getPai()) + 1);
-		y.setAltura(calcularAltura(x) + 1);
-		x.getEsquerdo().setAltura(x.getAltura() + 1);
+		y.setAltura(Math.max(calcularAltura(y.getEsquerdo()), calcularAltura(y.getDireito())) + 1);
+		x.setAltura(Math.max(calcularAltura(x.getEsquerdo()), calcularAltura(x.getDireito())) + 1);
 
 		return x;
 	}
@@ -64,15 +74,8 @@ public class ArvoreAvl {
 		y.setEsquerdo(x);
 		x.setDireito(T2);
 
-		y.setPai(x.getPai());
-		x.setPai(y);
-		if (Objects.nonNull(T2)) {
-			T2.setPai(x);
-		}
-
-		y.setAltura(calcularAltura(x.getPai()) + 1);
-		x.setAltura(calcularAltura(y) + 1);
-		y.getDireito().setAltura(y.getAltura() + 1);
+		x.setAltura(Math.max(calcularAltura(x.getEsquerdo()), calcularAltura(x.getDireito())) + 1);
+		y.setAltura(Math.max(calcularAltura(y.getEsquerdo()), calcularAltura(y.getDireito())) + 1);
 
 		return y;
 	}

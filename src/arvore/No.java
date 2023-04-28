@@ -1,27 +1,19 @@
 package arvore;
 
+import java.util.Objects;
+
 public class No {
 
 	private int valor;
 	private int altura;
-	private No pai;
 	private No direito;
 	private No esquerdo;
 
-	public No(int valor, No pai) {
+	public No(int valor) {
 		this.valor = valor;
-		this.pai = pai;
 		this.altura = 1;
 		this.direito = null;
 		this.esquerdo = null;
-	}
-
-	public No getPai() {
-		return pai;
-	}
-
-	public void setPai(No pai) {
-		this.pai = pai;
 	}
 
 	public No getDireito() {
@@ -56,11 +48,12 @@ public class No {
 		this.altura = altura;
 	}
 
-	public void atualizarFilhoUnico(No noFilho) {
-		if (this.getValor() < this.getPai().getValor()) {
-			this.getPai().setEsquerdo(noFilho);
+	public No atualizarFilhoUnico(int valor, No noFilho) {
+		if (Objects.nonNull(this.getEsquerdo()) && valor == this.getEsquerdo().getValor()) {
+			this.setEsquerdo(noFilho);
 		} else {
-			this.getPai().setDireito(noFilho);
+			this.setDireito(noFilho);
 		}
+		return noFilho;
 	}
 }

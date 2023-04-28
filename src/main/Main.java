@@ -21,7 +21,7 @@ public class Main {
 		arvoreBinaria.inserir(6);
 		arvoreBinaria.inserir(5);
 		arvoreBinaria.inserir(7);
-		
+
 //		arvoreBinaria.inserir(8);
 //		arvoreBinaria.inserir(4);
 //		arvoreBinaria.inserir(18);
@@ -32,7 +32,7 @@ public class Main {
 //		arvoreBinaria.inserir(10);
 //		arvoreBinaria.inserir(16);
 //		arvoreBinaria.inserir(14);
-		
+
 //		arvoreBinaria.inserir(120);
 //		arvoreBinaria.inserir(110);
 //		arvoreBinaria.inserir(150);
@@ -42,11 +42,11 @@ public class Main {
 //		arvoreBinaria.inserir(80);
 
 		Arvore.printNode(arvoreBinaria.getRaiz());
-		
+
 		int opcao = -1;
 		int numero = 0;
 
-		while (opcao != 4) {
+		while (opcao != 5) {
 			exibirMenu();
 			opcao = getInteiro("\nDigite a opcao que deseja: ");
 
@@ -70,13 +70,18 @@ public class Main {
 			case 3:
 				numero = getInteiro("\nQual valor deseja excluir? ");
 
-				if (arvoreBinaria.excluir(numero)) {
+				if (arvoreBinaria.excluir(numero) != null) {
 					Arvore.printNode(arvoreBinaria.getRaiz());
 				} else {
 					System.out.println("\nValor não encontrado na árvore.");
 				}
 				break;
 			case 4:
+				System.out.println("\nPré-Ordem: " + arvoreBinaria.percorrerPreOrdem());
+				System.out.println("Em-Ordem:  " + arvoreBinaria.percorrerEmOrdem());
+				System.out.println("Pós-Ordem: " + arvoreBinaria.percorrerPosOrdem());
+				break;
+			case 5:
 				System.out.println("\nSair...");
 				break;
 			default:
@@ -95,10 +100,7 @@ public class Main {
 		System.out.println("\n1 - Buscar");
 		System.out.println("2 - Inserir");
 		System.out.println("3 - Excluir");
-		System.out.println("4 - Sair");
+		System.out.println("4 - Percorrer");
+		System.out.println("5 - Sair");
 	}
 }
-
-// https://stackoverflow.com/a/4973083
-// https://www.baeldung.com/java-binary-tree
-// https://www.tutorialspoint.com/data_structures_algorithms/avl_tree_algorithm.htm#

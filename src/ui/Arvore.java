@@ -29,7 +29,6 @@ public class Arvore {
 
 		for (No node : nodes) {
 			if (node != null) {
-//				System.out.print(node.getValor()+"-"+node.getAltura());
 				System.out.print(node.getValor());
 				newNodes.add(node.getEsquerdo());
 				newNodes.add(node.getDireito());
