@@ -1,28 +1,28 @@
 package arvore;
 
-public class ArvoreAvl {
+public class ArvoreAvl<T extends Comparable<T>> {
 
-	public static No rebalancearInsercao(No no, int valor) {
+	public No<T> rebalancearInsercao(No<T> no, T valor) {
 		int fatorBalanceamento = calcularFatorBalanceamento(no);
 
-		if (fatorBalanceamento > 1 && valor < no.getEsquerdo().getValor()) {
+		if (fatorBalanceamento > 1 && valor.compareTo(no.getEsquerdo().getValor()) < 0) {
 			return rotacaoDireita(no);
 		}
-		if (fatorBalanceamento < -1 && valor > no.getDireito().getValor()) {
+		if (fatorBalanceamento < -1 && valor.compareTo(no.getDireito().getValor()) > 0) {
 			return rotacaoEsquerda(no);
 		}
-		if (fatorBalanceamento > 1 && valor > no.getEsquerdo().getValor()) {
+		if (fatorBalanceamento > 1 && valor.compareTo(no.getEsquerdo().getValor()) > 0) {
 			no.setEsquerdo(rotacaoEsquerda(no.getEsquerdo()));
 			return rotacaoDireita(no);
 		}
-		if (fatorBalanceamento < -1 && valor < no.getDireito().getValor()) {
+		if (fatorBalanceamento < -1 && valor.compareTo(no.getDireito().getValor()) < 0) {
 			no.setDireito(rotacaoDireita(no.getDireito()));
 			return rotacaoEsquerda(no);
 		}
 		return no;
 	}
 
-	public static No rebalancearRemocao(No no) {
+	public No<T> rebalancearRemocao(No<T> no) {
 		int fatorBalanceamento = calcularFatorBalanceamento(no);
 
 		if (fatorBalanceamento > 1 && calcularFatorBalanceamento(no.getEsquerdo()) >= 0) {
@@ -42,21 +42,21 @@ public class ArvoreAvl {
 		return no;
 	}
 
-	public static int calcularAltura(No no) {
+	public int calcularAltura(No<T> no) {
 		if (no == null)
 			return 0;
 		return no.getAltura();
 	}
 
-	private static int calcularFatorBalanceamento(No no) {
+	private int calcularFatorBalanceamento(No<T> no) {
 		if (no == null)
 			return 0;
 		return calcularAltura(no.getEsquerdo()) - calcularAltura(no.getDireito());
 	}
 
-	private static No rotacaoDireita(No y) {
-		No x = y.getEsquerdo();
-		No T2 = x.getDireito();
+	private No<T> rotacaoDireita(No<T> y) {
+		No<T> x = y.getEsquerdo();
+		No<T> T2 = x.getDireito();
 
 		x.setDireito(y);
 		y.setEsquerdo(T2);
@@ -67,9 +67,9 @@ public class ArvoreAvl {
 		return x;
 	}
 
-	private static No rotacaoEsquerda(No x) {
-		No y = x.getDireito();
-		No T2 = y.getEsquerdo();
+	private No<T> rotacaoEsquerda(No<T> x) {
+		No<T> y = x.getDireito();
+		No<T> T2 = y.getEsquerdo();
 
 		y.setEsquerdo(x);
 		x.setDireito(T2);
