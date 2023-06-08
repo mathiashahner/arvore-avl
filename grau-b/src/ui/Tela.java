@@ -18,7 +18,7 @@ public class Tela extends JFrame {
 	private TelaNome telaNome;
 	private TelaCpf telaCpf;
 	private TelaDataNascimento telaDataNascimento;
-	protected List<Pessoa> pessoas;
+	private List<Pessoa> pessoas;
 
 	public Tela(List<ArvoreBinaria<?>> arvoresBinarias, List<Pessoa> pessoas) {
 
@@ -33,6 +33,10 @@ public class Tela extends JFrame {
 		setupFrame();
 	}
 
+	public List<Pessoa> getPessoas() {
+		return pessoas;
+	}
+
 	private void setupTela() {
 		Container tela = getContentPane();
 		tela.setLayout(null);
@@ -44,7 +48,7 @@ public class Tela extends JFrame {
 
 	private void setupFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(new Dimension(486, 374));
+		setSize(new Dimension(606, 374));
 		setLocationRelativeTo(null);
 		setTitle("Árvore AVL");
 		setResizable(false);

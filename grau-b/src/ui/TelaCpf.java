@@ -23,17 +23,15 @@ public class TelaCpf extends JPanel {
 			mascaraCpf.setPlaceholderCharacter('_');
 
 			InputTexto inputCpf = new InputTexto(mascaraCpf);
-			inputCpf.setBounds(5, 0, 365, 25);
+			inputCpf.setBounds(5, 0, 475, 25);
 
 			BtnBuscar btnBuscar = new BtnBuscar();
-			Lista lista = new Lista();
 
-			setBounds(0, 35, 470, 300);
+			setBounds(0, 35, 590, 300);
 			setVisible(false);
 			setLayout(null);
 			add(inputCpf);
 			add(btnBuscar);
-			add(lista);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

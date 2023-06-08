@@ -10,7 +10,7 @@ public class BtnBuscar extends JButton {
 
 	public BtnBuscar() {
 		super("Buscar");
-		setBounds(375, 0, 90, 25);
+		setBounds(485, 0, 100, 25);
 		setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	}
 }

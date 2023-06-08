@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Cursor;
+
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
@@ -16,11 +17,11 @@ public class Cabecalho extends JPanel {
 
 		super();
 
-		btnNome = new BtnHeader("Nome", 5, 5, 150, 25);
-		btnCpf = new BtnHeader("CPF", 160, 5, 150, 25);
-		btnDataNascimento = new BtnHeader("Data de nascimento", 315, 5, 150, 25);
+		btnNome = new BtnHeader("Nome", 5, 5);
+		btnCpf = new BtnHeader("CPF", 200, 5);
+		btnDataNascimento = new BtnHeader("Data de nascimento", 395, 5);
 
-		setBounds(0, 0, 470, 35);
+		setBounds(0, 0, 590, 35);
 		setLayout(null);
 		add(btnNome);
 		add(btnCpf);
@@ -43,9 +44,9 @@ public class Cabecalho extends JPanel {
 
 		private static final long serialVersionUID = 1L;
 
-		public BtnHeader(String texto, int x, int y, int largura, int altura) {
+		public BtnHeader(String texto, int x, int y) {
 			super(texto);
-			setBounds(x, y, largura, altura);
+			setBounds(x, y, 190, 25);
 			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 		}
 	}

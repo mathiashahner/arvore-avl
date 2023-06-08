@@ -1,15 +1,14 @@
 package ui;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 
 import arvore.ArvoreBinaria;
-import main.Pessoa;
 
 public class TelaNome extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
+	private InputTexto inputNome;
 	private ArvoreBinaria<?> arvoreString;
 
 	public TelaNome(ArvoreBinaria<?> arvoreString) {
@@ -17,13 +16,13 @@ public class TelaNome extends JPanel {
 		super();
 		this.arvoreString = arvoreString;
 
-		InputTexto inputNome = new InputTexto("Buscar por nome...");
-		inputNome.setBounds(5, 0, 365, 25);
+		inputNome = new InputTexto("Buscar por nome...");
+		inputNome.setBounds(5, 0, 475, 25);
 
 		BtnBuscar btnBuscar = new BtnBuscar();
 		btnBuscar.addActionListener(e -> atualizarLista());
 
-		setBounds(0, 35, 470, 300);
+		setBounds(0, 35, 590, 300);
 		setVisible(true);
 		setLayout(null);
 		add(inputNome);
@@ -31,14 +30,21 @@ public class TelaNome extends JPanel {
 	}
 
 	public void atualizarLista() {
+		
+//		arvoreString.buscar(inputNome.getText());
+		Tabela tabela = new Tabela(getDadosPessoas());
 
-		Tela parent = (Tela) this.getParent().getParent().getParent().getParent();
-		DefaultListModel<String> elementos = new DefaultListModel<>();
-
-		for (Pessoa p : parent.pessoas)
-			elementos.addElement(p.getNome());
-
-		this.add(new Lista(elementos));
+		this.add(tabela);
 		this.repaint();
+	}
+
+	private Object[][] getDadosPessoas() {
+		Tela parent = (Tela) this.getRootPane().getParent();
+
+		return parent.getPessoas().stream().map(p -> {
+			String[] pessoaString = { p.getNome(), p.getCpf().toString(), p.getRg().toString(),
+					p.getDataNascimento().toString(), p.getCidade() };
+			return pessoaString;
+		}).toArray(Object[][]::new);
 	}
 }

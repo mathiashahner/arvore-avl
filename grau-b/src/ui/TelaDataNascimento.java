@@ -21,22 +21,20 @@ public class TelaDataNascimento extends JPanel {
 			MaskFormatter mascaraData = new MaskFormatter("##/##/####");
 			mascaraData.setPlaceholderCharacter('_');
 
-			InputTexto inputCpfInicio = new InputTexto(mascaraData);
-			inputCpfInicio.setBounds(5, 0, 180, 25);
+			InputTexto inputDataInicio = new InputTexto(mascaraData);
+			inputDataInicio.setBounds(5, 0, 235, 25);
 
-			InputTexto inputCpfFim = new InputTexto(mascaraData);
-			inputCpfFim.setBounds(190, 0, 180, 25);
+			InputTexto inputDataFim = new InputTexto(mascaraData);
+			inputDataFim.setBounds(245, 0, 235, 25);
 
 			BtnBuscar btnBuscar = new BtnBuscar();
-			Lista lista = new Lista();
 
-			setBounds(0, 35, 470, 300);
+			setBounds(0, 35, 590, 300);
 			setVisible(false);
 			setLayout(null);
-			add(inputCpfInicio);
-			add(inputCpfFim);
+			add(inputDataInicio);
+			add(inputDataFim);
 			add(btnBuscar);
-			add(lista);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
