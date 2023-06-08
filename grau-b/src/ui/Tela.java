@@ -4,19 +4,30 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.JFrame;
+import arvore.ArvoreBinaria;
+import main.Pessoa;
 
 public class Tela extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 
-	private Cabecalho cabecalho = new Cabecalho();
-	private TelaNome telaNome = new TelaNome();
-	private TelaCpf telaCpf = new TelaCpf();
-	private TelaDataNascimento telaDataNascimento = new TelaDataNascimento();
+	private Cabecalho cabecalho;
+	private TelaNome telaNome;
+	private TelaCpf telaCpf;
+	private TelaDataNascimento telaDataNascimento;
+	protected List<Pessoa> pessoas;
 
-	public Tela() {
+	public Tela(List<ArvoreBinaria<?>> arvoresBinarias, List<Pessoa> pessoas) {
+
+		this.pessoas = pessoas;
+		cabecalho = new Cabecalho();
+		telaNome = new TelaNome(arvoresBinarias.get(0));
+		telaCpf = new TelaCpf(arvoresBinarias.get(1));
+		telaDataNascimento = new TelaDataNascimento(arvoresBinarias.get(2));
+
 		setupTela();
 		setupListeners();
 		setupFrame();

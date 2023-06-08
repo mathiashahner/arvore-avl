@@ -16,14 +16,9 @@ public class Cabecalho extends JPanel {
 
 		super();
 
-		btnNome.setBounds(5, 5, 150, 25);
-		btnNome.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		btnCpf.setBounds(160, 5, 150, 25);
-		btnCpf.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		btnDataNascimento.setBounds(315, 5, 150, 25);
-		btnDataNascimento.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		btnNome = new BtnHeader("Nome", 5, 5, 150, 25);
+		btnCpf = new BtnHeader("CPF", 160, 5, 150, 25);
+		btnDataNascimento = new BtnHeader("Data de nascimento", 315, 5, 150, 25);
 
 		setBounds(0, 0, 470, 35);
 		setLayout(null);
@@ -42,5 +37,16 @@ public class Cabecalho extends JPanel {
 
 	public JButton getBtnDataNascimento() {
 		return btnDataNascimento;
+	}
+
+	private class BtnHeader extends JButton {
+
+		private static final long serialVersionUID = 1L;
+
+		public BtnHeader(String texto, int x, int y, int largura, int altura) {
+			super(texto);
+			setBounds(x, y, largura, altura);
+			setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		}
 	}
 }

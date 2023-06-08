@@ -1,6 +1,7 @@
 package ui;
 
 import java.awt.Color;
+import java.awt.Insets;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
@@ -13,11 +14,13 @@ public class InputTexto extends JFormattedTextField {
 
 	public InputTexto(MaskFormatter mascaraCpf) {
 		super(mascaraCpf);
+		setMargin(new Insets(2, 5, 2, 5));
 	}
 
 	public InputTexto(String placeholder) {
 		super(placeholder);
 
+		setMargin(new Insets(2, 5, 2, 5));
 		setForeground(Color.GRAY);
 
 		addFocusListener(new FocusListener() {

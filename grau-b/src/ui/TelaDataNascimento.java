@@ -1,39 +1,42 @@
 package ui;
 
-import java.awt.Color;
-import java.awt.Insets;
 import java.text.ParseException;
 
-import javax.swing.JList;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
 import javax.swing.text.MaskFormatter;
+import arvore.ArvoreBinaria;
 
 public class TelaDataNascimento extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public TelaDataNascimento() {
+	private ArvoreBinaria<?> arvoreDate;
+
+	public TelaDataNascimento(ArvoreBinaria<?> arvoreDate) {
 
 		super();
+		this.arvoreDate = arvoreDate;
 
 		try {
 			MaskFormatter mascaraData = new MaskFormatter("##/##/####");
 			mascaraData.setPlaceholderCharacter('_');
 
-			InputTexto inputCpf = new InputTexto(mascaraData);
-			inputCpf.setMargin(new Insets(2, 5, 2, 5));
-			inputCpf.setBounds(5, 0, 460, 25);
+			InputTexto inputCpfInicio = new InputTexto(mascaraData);
+			inputCpfInicio.setBounds(5, 0, 180, 25);
 
-			JList list = new JList();
-			list.setBorder(new LineBorder(new Color(128, 128, 128)));
-			list.setBounds(5, 30, 460, 265);
+			InputTexto inputCpfFim = new InputTexto(mascaraData);
+			inputCpfFim.setBounds(190, 0, 180, 25);
+
+			BtnBuscar btnBuscar = new BtnBuscar();
+			Lista lista = new Lista();
 
 			setBounds(0, 35, 470, 300);
 			setVisible(false);
 			setLayout(null);
-			add(inputCpf);
-			add(list);
+			add(inputCpfInicio);
+			add(inputCpfFim);
+			add(btnBuscar);
+			add(lista);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}

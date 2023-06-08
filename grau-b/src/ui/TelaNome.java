@@ -1,32 +1,44 @@
 package ui;
 
-import java.awt.Color;
-import java.awt.Insets;
-
-import javax.swing.JList;
+import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
+
+import arvore.ArvoreBinaria;
+import main.Pessoa;
 
 public class TelaNome extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
-	public TelaNome() {
+	private ArvoreBinaria<?> arvoreString;
+
+	public TelaNome(ArvoreBinaria<?> arvoreString) {
 
 		super();
+		this.arvoreString = arvoreString;
 
 		InputTexto inputNome = new InputTexto("Buscar por nome...");
-		inputNome.setMargin(new Insets(2, 5, 2, 5));
-		inputNome.setBounds(5, 0, 460, 25);
+		inputNome.setBounds(5, 0, 365, 25);
 
-		JList list = new JList();
-		list.setBorder(new LineBorder(new Color(128, 128, 128)));
-		list.setBounds(5, 30, 460, 265);
+		BtnBuscar btnBuscar = new BtnBuscar();
+		btnBuscar.addActionListener(e -> atualizarLista());
 
 		setBounds(0, 35, 470, 300);
 		setVisible(true);
 		setLayout(null);
 		add(inputNome);
-		add(list);
+		add(btnBuscar);
+	}
+
+	public void atualizarLista() {
+
+		Tela parent = (Tela) this.getParent().getParent().getParent().getParent();
+		DefaultListModel<String> elementos = new DefaultListModel<>();
+
+		for (Pessoa p : parent.pessoas)
+			elementos.addElement(p.getNome());
+
+		this.add(new Lista(elementos));
+		this.repaint();
 	}
 }

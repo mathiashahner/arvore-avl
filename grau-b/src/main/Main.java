@@ -1,7 +1,9 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 import arvore.ArvoreBinaria;
 import ui.Tela;
@@ -38,6 +40,17 @@ public class Main {
 		arvoreDate.inserir(new GregorianCalendar(2023, 06, 05).getTime());
 		arvoreDate.inserir(new GregorianCalendar(2023, 06, 07).getTime());
 
-		new Tela();
+		List<Pessoa> pessoas = new ArrayList<>();
+		pessoas.add(new Pessoa("12345678901", "3214445566", "Mathias Hahner",
+				new GregorianCalendar(2001, 05, 30).getTime(), "Rolante"));
+		pessoas.add(new Pessoa("00011122233", "3217895786", "Emily Specht",
+				new GregorianCalendar(2001, 01, 23).getTime(), "Venâncio Aires"));
+
+		List<ArvoreBinaria<?>> arvoresBinarias = new ArrayList<>();
+		arvoresBinarias.add(arvoreString);
+		arvoresBinarias.add(arvoreInteger);
+		arvoresBinarias.add(arvoreDate);
+
+		new Tela(arvoresBinarias, pessoas);
 	}
 }
