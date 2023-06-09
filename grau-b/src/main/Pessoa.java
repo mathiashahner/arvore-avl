@@ -39,4 +39,10 @@ public class Pessoa {
 	public String getCidade() {
 		return cidade;
 	}
+
+	public String[] getArrayDados() {
+		String[] pessoaString = { getNome(), getCpf().toString(), getRg().toString(), getDataNascimento().toString(),
+				getCidade() };
+		return pessoaString;
+	}
 }

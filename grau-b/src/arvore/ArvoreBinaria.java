@@ -3,6 +3,7 @@ package arvore;
 import java.util.Objects;
 
 public class ArvoreBinaria<T extends Comparable<T>> {
+
 	private No<T> raiz;
 	private ArvoreAvl<T> arvoreAvl = new ArvoreAvl<>();
 
@@ -10,26 +11,26 @@ public class ArvoreBinaria<T extends Comparable<T>> {
 		return raiz;
 	}
 
-	public void inserir(T valor) {
-		raiz = inserir(valor, raiz);
+	public void inserir(T valor, int posicao) {
+		raiz = inserir(valor, posicao, raiz);
 	}
 
-	private No<T> inserir(T valor, No<T> noPai) {
+	private No<T> inserir(T valor, int posicao, No<T> noPai) {
 		if (Objects.isNull(noPai)) {
-			return new No<T>(valor, 0);
+			return new No<T>(valor, posicao);
 		}
 
 		if (valor.compareTo(noPai.getValor()) < 0) {
-			noPai.setEsquerdo(inserir(valor, noPai.getEsquerdo()));
+			noPai.setEsquerdo(inserir(valor, posicao, noPai.getEsquerdo()));
 		} else if (valor.compareTo(noPai.getValor()) > 0) {
-			noPai.setDireito(inserir(valor, noPai.getDireito()));
+			noPai.setDireito(inserir(valor, posicao, noPai.getDireito()));
 		} else {
 			return noPai;
 		}
 
 		noPai.setAltura(Math.max(arvoreAvl.calcularAltura(noPai.getEsquerdo()),
 				arvoreAvl.calcularAltura(noPai.getDireito())) + 1);
-		
+
 		return arvoreAvl.rebalancearInsercao(noPai, valor);
 	}
 
@@ -42,7 +43,7 @@ public class ArvoreBinaria<T extends Comparable<T>> {
 			return noPai;
 		}
 
-		if (valor == noPai.getValor()) {
+		if (valor.compareTo(noPai.getValor()) == 0) {
 			return noPai;
 		} else if (valor.compareTo(noPai.getValor()) < 0) {
 			return buscar(valor, noPai.getEsquerdo());
@@ -135,5 +136,24 @@ public class ArvoreBinaria<T extends Comparable<T>> {
 		}
 
 		return sb.toString();
+	}
+
+	public No<T> buscarString(T valor) {
+		return buscarString(valor, raiz);
+	}
+
+	private No<T> buscarString(T valor, No<T> noPai) {
+		if (Objects.isNull(noPai)) {
+			return noPai;
+		}
+
+		if (noPai.getValor().toString().toUpperCase().contains((CharSequence) valor.toString().toUpperCase())) {
+			return noPai;
+		} else if (valor.compareTo(noPai.getValor()) < 0) {
+			return buscarString(valor, noPai.getEsquerdo());
+		} else if (valor.compareTo(noPai.getValor()) > 0) {
+			return buscarString(valor, noPai.getDireito());
+		}
+		return null;
 	}
 }

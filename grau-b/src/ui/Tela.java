@@ -4,6 +4,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigInteger;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -20,13 +22,14 @@ public class Tela extends JFrame {
 	private TelaDataNascimento telaDataNascimento;
 	private List<Pessoa> pessoas;
 
+	@SuppressWarnings("unchecked")
 	public Tela(List<ArvoreBinaria<?>> arvoresBinarias, List<Pessoa> pessoas) {
 
 		this.pessoas = pessoas;
 		cabecalho = new Cabecalho();
-		telaNome = new TelaNome(arvoresBinarias.get(0));
-		telaCpf = new TelaCpf(arvoresBinarias.get(1));
-		telaDataNascimento = new TelaDataNascimento(arvoresBinarias.get(2));
+		telaNome = new TelaNome((ArvoreBinaria<String>) arvoresBinarias.get(0));
+		telaCpf = new TelaCpf((ArvoreBinaria<BigInteger>) arvoresBinarias.get(1));
+		telaDataNascimento = new TelaDataNascimento((ArvoreBinaria<Date>) arvoresBinarias.get(2));
 
 		setupTela();
 		setupListeners();
