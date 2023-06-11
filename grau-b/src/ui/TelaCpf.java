@@ -46,7 +46,7 @@ public class TelaCpf extends JPanel {
 
 		String textoInput = inputCpf.getText().replaceAll("\\D", "");
 
-		if (!textoInput.equals("") && !textoInput.equals("___.___.___-__")) {
+		if (!textoInput.equals("")) {
 
 			if (tabela != null)
 				remove(tabela);

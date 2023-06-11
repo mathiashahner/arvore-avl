@@ -94,7 +94,7 @@ public class ArvoreBinaria<T extends Comparable<T>> {
 		return percorrerEmOrdem(raiz);
 	}
 
-	private String percorrerEmOrdem(No<T> noAtual) {
+	public String percorrerEmOrdem(No<T> noAtual) {
 		StringBuilder sb = new StringBuilder();
 
 		if (noAtual != null) {

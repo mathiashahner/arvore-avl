@@ -1,6 +1,5 @@
 package ui;
 
-import java.math.BigInteger;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -52,23 +51,23 @@ public class TelaDataNascimento extends JPanel {
 
 		String textoInputInicio = inputDataInicio.getText().replaceAll("\\D", "");
 		String textoInputFim = inputDataFim.getText().replaceAll("\\D", "");
-//
-//		if (!textoInput.equals("") && !textoInput.equals("___.___.___-__")) {
-//
-//			if (tabela != null)
-//				remove(tabela);
-//
-		No<Date> noInicio = arvoreDate.buscar(new GregorianCalendar(Integer.parseInt(textoInputInicio.substring(4)),
-				Integer.parseInt(textoInputInicio.substring(2, 3)), Integer.parseInt(textoInputInicio.substring(0, 1)))
-				.getTime());
 
-		if (noInicio != null) {
-			tabela = new Tabela(getDadosPessoas(noInicio.getPosicao()));
-			add(tabela);
+		if (!textoInputInicio.equals("") && !textoInputFim.equals("")) {
+
+			if (tabela != null)
+				remove(tabela);
+
+			No<Date> noInicio = arvoreDate.buscar(new GregorianCalendar(Integer.parseInt(textoInputInicio.substring(4)),
+					Integer.parseInt(textoInputInicio.substring(2, 3)),
+					Integer.parseInt(textoInputInicio.substring(0, 1))).getTime());
+
+			if (noInicio != null) {
+				tabela = new Tabela(getDadosPessoas(noInicio.getPosicao()));
+				add(tabela);
+			}
+
+			repaint();
 		}
-
-		repaint();
-//		}
 	}
 
 	private Object[][] getDadosPessoas(int posicao) {

@@ -1,8 +1,5 @@
 package ui;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.JPanel;
 
 import arvore.ArvoreBinaria;
@@ -45,8 +42,7 @@ public class TelaNome extends JPanel {
 				remove(tabela);
 
 			No<String> no = arvoreString.buscarString(textoInput);
-//			List<Integer> indicePessoas = arvoreString.percorrerEmOrdem(no, textoInput);
-			List<Integer> indicePessoas = new ArrayList<>(no.getPosicao());
+			String indicePessoas = arvoreString.percorrerEmOrdem(no);
 
 			if (no != null) {
 				tabela = new Tabela(getDadosPessoas(indicePessoas));
@@ -57,7 +53,7 @@ public class TelaNome extends JPanel {
 		}
 	}
 
-	private Object[][] getDadosPessoas(List<Integer> indicePessoas) {
+	private Object[][] getDadosPessoas(String indicePessoas) {
 		Tela parent = (Tela) getRootPane().getParent();
 		return parent.getPessoas().stream().map(p -> p.getArrayDados()).toArray(Object[][]::new);
 	}
