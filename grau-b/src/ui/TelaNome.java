@@ -1,5 +1,7 @@
 package ui;
 
+import java.util.Arrays;
+
 import javax.swing.JPanel;
 
 import arvore.ArvoreBinaria;
@@ -34,27 +36,27 @@ public class TelaNome extends JPanel {
 
 	public void atualizarLista() {
 
-		String textoInput = inputNome.getText();
+		String textoInput = inputNome.getText().equals(PLACEHOLDER) ? "" : inputNome.getText();
 
-		if (!textoInput.equals("") && !textoInput.equals(PLACEHOLDER)) {
+		if (tabela != null)
+			remove(tabela);
 
-			if (tabela != null)
-				remove(tabela);
+		No<String> no = arvoreString.buscarString(textoInput.toUpperCase());
 
-			No<String> no = arvoreString.buscarString(textoInput);
-			String indicePessoas = arvoreString.percorrerEmOrdem(no);
+		if (no != null) {
+			String indicePessoas = arvoreString.percorrerEmOrdem(no, textoInput.toUpperCase());
 
-			if (no != null) {
-				tabela = new Tabela(getDadosPessoas(indicePessoas));
-				add(tabela);
-			}
-
-			repaint();
+			tabela = new Tabela(getDadosPessoas(indicePessoas.split(";")));
+			add(tabela);
 		}
+
+		repaint();
 	}
 
-	private Object[][] getDadosPessoas(String indicePessoas) {
+	private Object[][] getDadosPessoas(String[] indicePessoas) {
 		Tela parent = (Tela) getRootPane().getParent();
-		return parent.getPessoas().stream().map(p -> p.getArrayDados()).toArray(Object[][]::new);
+		return Arrays.stream(indicePessoas)
+				.map(indice -> parent.getPessoas().get(Integer.parseInt(indice)).getArrayDados())
+				.toArray(Object[][]::new);
 	}
 }

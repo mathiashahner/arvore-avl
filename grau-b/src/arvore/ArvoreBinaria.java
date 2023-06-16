@@ -1,5 +1,6 @@
 package arvore;
 
+import java.util.Date;
 import java.util.Objects;
 
 public class ArvoreBinaria<T extends Comparable<T>> {
@@ -53,86 +54,31 @@ public class ArvoreBinaria<T extends Comparable<T>> {
 		return null;
 	}
 
-	public No<T> excluir(T valor) {
-		raiz = excluir(valor, raiz, null);
-		return raiz;
-	}
-
-	private No<T> excluir(T valor, No<T> no, No<T> noPai) {
-		if (Objects.isNull(no)) {
-			return no;
-		}
-
-		if (valor.compareTo(no.getValor()) < 0) {
-			no.setEsquerdo(excluir(valor, no.getEsquerdo(), no));
-		} else if (valor.compareTo(no.getValor()) > 0) {
-			no.setDireito(excluir(valor, no.getDireito(), no));
-		} else {
-			if (Objects.isNull(no.getEsquerdo()) && Objects.isNull(no.getDireito())) {
-				return noPai.atualizarFilhoUnico(no.getValor(), null);
-			} else if (Objects.nonNull(no.getEsquerdo()) ^ Objects.nonNull(no.getDireito())) {
-				No<T> noFilho = Objects.nonNull(no.getEsquerdo()) ? no.getEsquerdo() : no.getDireito();
-				return noPai.atualizarFilhoUnico(no.getValor(), noFilho);
-			} else if (Objects.nonNull(no.getEsquerdo()) && Objects.nonNull(no.getDireito())) {
-				No<T> maiorNoEsquerdo = no.getEsquerdo();
-
-				while (Objects.nonNull(maiorNoEsquerdo.getDireito())) {
-					maiorNoEsquerdo = maiorNoEsquerdo.getDireito();
-				}
-
-				no.setValor(maiorNoEsquerdo.getValor());
-				no.setEsquerdo(excluir(maiorNoEsquerdo.getValor(), no.getEsquerdo(), no));
-			}
-		}
-
-		no.setAltura(
-				Math.max(arvoreAvl.calcularAltura(no.getEsquerdo()), arvoreAvl.calcularAltura(no.getDireito())) + 1);
-		return arvoreAvl.rebalancearRemocao(no);
-	}
-
-	public String percorrerEmOrdem() {
-		return percorrerEmOrdem(raiz);
-	}
-
-	public String percorrerEmOrdem(No<T> noAtual) {
+	public String percorrerEmOrdem(No<T> noAtual, String valor) {
 		StringBuilder sb = new StringBuilder();
 
 		if (noAtual != null) {
-			sb.append(percorrerEmOrdem(noAtual.getEsquerdo()));
-			sb.append(String.valueOf(noAtual.getValor()) + "  ");
-			sb.append(percorrerEmOrdem(noAtual.getDireito()));
+			sb.append(percorrerEmOrdem(noAtual.getEsquerdo(), valor));
+
+			if (noAtual.getValor().toString().startsWith(valor))
+				sb.append(String.valueOf(noAtual.getPosicao()) + ";");
+
+			sb.append(percorrerEmOrdem(noAtual.getDireito(), valor));
 		}
 
 		return sb.toString();
 	}
 
-	public String percorrerPreOrdem() {
-		return percorrerPreOrdem(raiz);
-	}
-
-	private String percorrerPreOrdem(No<T> noAtual) {
+	public String percorrerEmOrdemDate(No<Date> noAtual, Date valorInicio, Date valorFim) {
 		StringBuilder sb = new StringBuilder();
 
 		if (noAtual != null) {
-			sb.append(String.valueOf(noAtual.getValor()) + "  ");
-			sb.append(percorrerPreOrdem(noAtual.getEsquerdo()));
-			sb.append(percorrerPreOrdem(noAtual.getDireito()));
-		}
+			sb.append(percorrerEmOrdemDate(noAtual.getEsquerdo(), valorInicio, valorFim));
 
-		return sb.toString();
-	}
+			if (noAtual.getValor().after(valorInicio) && noAtual.getValor().before(valorFim))
+				sb.append(String.valueOf(noAtual.getPosicao()) + ";");
 
-	public String percorrerPosOrdem() {
-		return percorrerPosOrdem(raiz);
-	}
-
-	private String percorrerPosOrdem(No<T> noAtual) {
-		StringBuilder sb = new StringBuilder();
-
-		if (noAtual != null) {
-			sb.append(percorrerPosOrdem(noAtual.getEsquerdo()));
-			sb.append(percorrerPosOrdem(noAtual.getDireito()));
-			sb.append(String.valueOf(noAtual.getValor()) + "  ");
+			sb.append(percorrerEmOrdemDate(noAtual.getDireito(), valorInicio, valorFim));
 		}
 
 		return sb.toString();
@@ -147,12 +93,31 @@ public class ArvoreBinaria<T extends Comparable<T>> {
 			return noPai;
 		}
 
-		if (noPai.getValor().toString().toUpperCase().contains((CharSequence) valor.toString().toUpperCase())) {
+		if (noPai.getValor().toString().startsWith(valor.toString())) {
 			return noPai;
 		} else if (valor.compareTo(noPai.getValor()) < 0) {
 			return buscarString(valor, noPai.getEsquerdo());
 		} else if (valor.compareTo(noPai.getValor()) > 0) {
 			return buscarString(valor, noPai.getDireito());
+		}
+		return null;
+	}
+
+	public No<Date> buscarDate(Date valorInicio, Date valorFim) {
+		return buscarDate(valorInicio, valorFim, (No<Date>) raiz);
+	}
+
+	private No<Date> buscarDate(Date valorInicio, Date valorFim, No<Date> noPai) {
+		if (Objects.isNull(noPai)) {
+			return noPai;
+		}
+
+		if (noPai.getValor().after(valorInicio) && noPai.getValor().before(valorFim)) {
+			return noPai;
+		} else if (valorInicio.compareTo(noPai.getValor()) < 0) {
+			return buscarDate(valorInicio, valorFim, noPai.getEsquerdo());
+		} else if (valorFim.compareTo(noPai.getValor()) > 0) {
+			return buscarDate(valorInicio, valorFim, noPai.getDireito());
 		}
 		return null;
 	}

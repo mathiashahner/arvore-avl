@@ -1,8 +1,9 @@
 package ui;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import javax.swing.JPanel;
 import javax.swing.text.MaskFormatter;
@@ -12,6 +13,7 @@ import arvore.No;
 public class TelaDataNascimento extends JPanel {
 
 	private static final long serialVersionUID = 1L;
+	private static final String PLACEHOLDER = "__/__/____";
 
 	private Tabela tabela;
 	private InputTexto inputDataInicio;
@@ -49,20 +51,21 @@ public class TelaDataNascimento extends JPanel {
 
 	public void atualizarLista() {
 
-		String textoInputInicio = inputDataInicio.getText().replaceAll("\\D", "");
-		String textoInputFim = inputDataFim.getText().replaceAll("\\D", "");
+		String textoInputInicio = inputDataInicio.getText();
+		String textoInputFim = inputDataFim.getText();
 
-		if (!textoInputInicio.equals("") && !textoInputFim.equals("")) {
+		if (!textoInputInicio.equals(PLACEHOLDER) && !textoInputFim.equals(PLACEHOLDER)) {
 
 			if (tabela != null)
 				remove(tabela);
 
-			No<Date> noInicio = arvoreDate.buscar(new GregorianCalendar(Integer.parseInt(textoInputInicio.substring(4)),
-					Integer.parseInt(textoInputInicio.substring(2, 3)),
-					Integer.parseInt(textoInputInicio.substring(0, 1))).getTime());
+			No<Date> no = arvoreDate.buscarDate(converterParaDate(textoInputInicio), converterParaDate(textoInputFim));
 
-			if (noInicio != null) {
-				tabela = new Tabela(getDadosPessoas(noInicio.getPosicao()));
+			if (no != null) {
+				String indicePessoas = arvoreDate.percorrerEmOrdemDate(no, converterParaDate(textoInputInicio),
+						converterParaDate(textoInputFim));
+
+				tabela = new Tabela(getDadosPessoas(indicePessoas.split(";")));
 				add(tabela);
 			}
 
@@ -70,9 +73,19 @@ public class TelaDataNascimento extends JPanel {
 		}
 	}
 
-	private Object[][] getDadosPessoas(int posicao) {
+	private Date converterParaDate(String input) {
+		try {
+			return new SimpleDateFormat("dd/MM/yyyy").parse(input);
+		} catch (ParseException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	private Object[][] getDadosPessoas(String[] indicePessoas) {
 		Tela parent = (Tela) getRootPane().getParent();
-		Object[][] array = { parent.getPessoas().get(posicao).getArrayDados() };
-		return array;
+		return Arrays.stream(indicePessoas)
+				.map(indice -> parent.getPessoas().get(Integer.parseInt(indice)).getArrayDados())
+				.toArray(Object[][]::new);
 	}
 }
