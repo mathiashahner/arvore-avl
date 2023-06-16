@@ -1,6 +1,7 @@
 package main;
 
 import java.math.BigInteger;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Pessoa {
@@ -41,8 +42,8 @@ public class Pessoa {
 	}
 
 	public String[] getArrayDados() {
-		String[] pessoaString = { getNome(), getCpf().toString(), getRg().toString(), getDataNascimento().toString(),
-				getCidade() };
+		String[] pessoaString = { getNome(), getCpf().toString(), getRg().toString(),
+				new SimpleDateFormat("dd/MM/yyyy").format(dataNascimento), getCidade() };
 		return pessoaString;
 	}
 }
